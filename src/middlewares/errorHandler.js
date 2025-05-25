@@ -1,4 +1,5 @@
-import createHttpError from "http-errors";
+import createHttpError, { HttpError } from "http-errors";
+
 
 export const errorHandler = (err, req, res, next) => {
     if (err instanceof HttpError) {
