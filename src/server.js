@@ -41,15 +41,16 @@ export const setupServer = async () => {
         }
 
         res.status(200).json({
-            data: contact,
-    });
+          data: contact,
+        });
+
     });
 
-    // app.use('*', (req, res, next) => {
-    //     res.status(404).json({
-    //         message: 'Not found',
-    //     });
-    // });
+    app.use((req, res) => {
+        res.status(404).json({
+            message: 'Not found',
+        });
+    });
 
     app.listen(PORT, () => {
 	    console.log(`Server is running on port ${PORT}`);
