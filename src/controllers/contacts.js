@@ -1,7 +1,7 @@
 import { getAllContacts, getContactById, createContact, updateContact, deleteContactById } from "../services/contacts.js";
 import createHttpError from "http-errors";
 
-export const getAllContactsController = async (req, res, next) => {
+export const getAllContactsController = async (req, res ) => {
         const contacts = await getAllContacts();
 
         res.json({
@@ -12,7 +12,7 @@ export const getAllContactsController = async (req, res, next) => {
     
 };
 
-export const getContactByIdController = async (req, res, next) => {
+export const getContactByIdController = async (req, res ) => {
     
     const {contactId} = req.params;
     const contact = await getContactById(contactId);
@@ -38,7 +38,7 @@ export const createContactController = async (req, res) => {
     })
 };
 
-export const patchContactController = async (req, res) => {
+export const patchContactController = async (req, res, next) => {
     const {contactId} = req.params;
     const contact = await updateContact(contactId, req.body);
 
@@ -53,7 +53,7 @@ export const patchContactController = async (req, res) => {
     })  
 };
 
-export const deleteContactByIdController = async (req, res) => {
+export const deleteContactByIdController = async (req, res, next) => {
     const {contactId} = req.params;
     const contact = await deleteContactById(contactId);
 
