@@ -17,4 +17,5 @@ const router = Router();
 
     router.delete('/contacts/:contactId', isValidId, ctrlWrapper(deleteContactByIdController));
 
-    export default router;
+export default router;
+    
