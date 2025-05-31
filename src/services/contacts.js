@@ -10,6 +10,13 @@ export const getAllContacts = async ({ page, perPage }) => {
 
     const contacts = await contactsQuery.skip(skip).limit(limit).exec();
     const paginationData = calculatePaginationData(contactsCount, page, perPage);
+    
+    if (page > paginationData.totalPages && contactsCount > 0) {
+        const err = new Error(`Page ${page} does not exist. Only ${paginationData.totalPages} pages available.`);
+        err.status = 404;
+        throw err;
+    }
+    
     return {
         data: contacts,
         ...paginationData,
