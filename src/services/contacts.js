@@ -12,7 +12,7 @@ export const getAllContacts = async ({ page, perPage,
     const contactsQuery = Contact.find();
 
     if (filter.type) {
-        contactsQuery.where('type').equals(filter.type);
+        contactsQuery.where('contactType').equals(filter.type);
     }
     if (filter.isFavourite) {
         contactsQuery.where('isFavourite').equals(filter.isFavourite);

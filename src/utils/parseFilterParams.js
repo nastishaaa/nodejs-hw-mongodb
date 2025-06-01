@@ -11,7 +11,6 @@ const parseType = (type) => {
     if (typeof isFavourite === 'boolean') return isFavourite;
   
     if (typeof isFavourite === 'string') {
-      // Приводимо рядок до булевого значення
       if (isFavourite.toLowerCase() === 'true') return true;
       if (isFavourite.toLowerCase() === 'false') return false;
     }
@@ -26,8 +25,8 @@ const parseType = (type) => {
     const parsedIsFavourite = parseIsFavourite(isFavourite);
   
     return {
-      type: parsedType,
-      isFavourite: parsedIsFavourite,
+        contactType: parsedType,
+        isFavourite: parsedIsFavourite,
     };
   };
   
