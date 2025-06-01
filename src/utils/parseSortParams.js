@@ -1,4 +1,5 @@
-import { SORT_ORDER } from ".."
+import { SORT_ORDER } from "../index";
+
 const parseSortOrder = (sortOrder) => {
     const isKnownOrder = [SORT_ORDER.ASC, SORT_ORDER.DESC].includes(sortOrder);
     if (isKnownOrder) return sortOrder;
@@ -9,10 +10,10 @@ const parseSortOrder = (sortOrder) => {
     const keysOfStudent = [
       '_id',
       'name',
-      'age',
-      'gender',
-      'avgMark',
-      'onDuty',
+      'phoneNumber',
+      'email',
+      'isFavourite',
+      'contactType',
       'createdAt',
       'updatedAt',
     ];
