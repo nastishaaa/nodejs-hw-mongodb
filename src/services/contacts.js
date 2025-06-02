@@ -12,10 +12,12 @@ export const getAllContacts = async ({ page, perPage,
 
     const contactsQuery = Contact.find();
 
-    if (parseType(filter.contactType)) {
+    const contactType = parseType(filter?.contactType);
+    if (contactType) {
         contactsQuery.where('contactType').equals(filter.contactType);
     }
-    if (parseIsFavourite(filter.isFavourite)) {
+    const isFavourite = parseIsFavourite(filter?.isFavourite);
+    if (isFavourite) {
         contactsQuery.where('isFavourite').equals(filter.isFavourite);
     }
     const contactsCount = await Contact.find().merge(contactsQuery).countDocuments();
