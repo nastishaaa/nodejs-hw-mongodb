@@ -1,7 +1,7 @@
 import {Contact} from '../db/models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../index.js';
-import { parseType, parseIsFavourite } from '../utils/parseFilterParams.js';
+import { parseIsFavourite, parseType } from '../utils/parseFilterParams.js';
 
 export const getAllContacts = async ({ page, perPage,
     sortOrder = SORT_ORDER.ASC,

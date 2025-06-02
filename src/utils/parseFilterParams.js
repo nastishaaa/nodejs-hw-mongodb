@@ -1,4 +1,4 @@
-const parseType = (type) => {
+export const parseType = (type) => {
     if (typeof type !== 'string') return;
   
     const validTypes = ['work', 'home', 'personal'];
@@ -7,7 +7,7 @@ const parseType = (type) => {
     return;
   };
   
-  const parseIsFavourite = (isFavourite) => {
+export const parseIsFavourite = (isFavourite) => {
     if (typeof isFavourite === 'boolean') return isFavourite;
   
     if (typeof isFavourite === 'string') {
