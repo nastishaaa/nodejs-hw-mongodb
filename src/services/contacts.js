@@ -1,6 +1,7 @@
 import {Contact} from '../db/models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../index.js';
+import { parseType, parseIsFavourite } from '../utils/parseFilterParams.js';
 
 export const getAllContacts = async ({ page, perPage,
     sortOrder = SORT_ORDER.ASC,
@@ -11,10 +12,10 @@ export const getAllContacts = async ({ page, perPage,
 
     const contactsQuery = Contact.find();
 
-    if (filter.type) {
-        contactsQuery.where('contactType').equals(filter.type);
+    if (parseType(filter.contactType)) {
+        contactsQuery.where('contactType').equals(filter.contactType);
     }
-    if (filter.isFavourite) {
+    if (parseIsFavourite(filter.isFavourite)) {
         contactsQuery.where('isFavourite').equals(filter.isFavourite);
     }
     const contactsCount = await Contact.find().merge(contactsQuery).countDocuments();
