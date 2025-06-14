@@ -6,11 +6,11 @@ import { parseIsFavourite, parseType } from '../utils/parseFilterParams.js';
 export const getAllContacts = async ({ page, perPage,
     sortOrder = SORT_ORDER.ASC,
     sortBy = '_id',
-    filter = {}}) => {
+    filter = {}, userId}) => {
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
-    const contactsQuery = Contact.find();
+    const contactsQuery = Contact.find({ userId });
 
     const contactType = parseType(filter?.contactType);
     if (contactType) {
@@ -37,8 +37,8 @@ export const getAllContacts = async ({ page, perPage,
     };
 };
 
-export const getContactById = async (contactId) => {
-    const contact = await Contact.findById(contactId);
+export const getContactById = async (contactId, userId) => {
+    const contact = await Contact.findOne({ _id: contactId, userId });
     return contact;
 }
 
@@ -47,13 +47,13 @@ export const createContact = async (payload) => {
     return contact;
 }
 
-export const updateContact = async (contactId, payload) => {
-    const contact = await Contact.findByIdAndUpdate(contactId, payload);
+export const updateContact = async (contactId, payload, userId) => {
+    const contact = await Contact.findOneAndUpdate({ _id: contactId, userId }, payload, { new: true });
     return contact;
 
 }
 
-export const deleteContactById = async (contactId) => {
-    const contact = await Contact.findByIdAndDelete(contactId)
+export const deleteContactById = async (contactId, userId) => {
+    const contact = await Contact.findOneAndDelete({ _id: contactId, userId })
     return contact;
 }
