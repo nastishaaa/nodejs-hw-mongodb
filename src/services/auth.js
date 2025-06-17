@@ -12,7 +12,7 @@ export const registerUser = async (payload) => {
     const encryptedPassword = await bcrypt.hash(payload.password, 10);
     return await User.create({
         ...payload,
-        encryptedPassword
+        password: encryptedPassword
     });
 }
 
