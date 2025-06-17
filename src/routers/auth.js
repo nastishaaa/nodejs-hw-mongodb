@@ -7,8 +7,8 @@ import { validateBody } from "../middlewares/validateBody.js";
 const registerRouter = Router();
 
 registerRouter.post('/register', validateBody(registerUserSchema), ctrlWrapper(registerUserController));
-registerRouter.get('/login', validateBody(loginSchema), ctrlWrapper(loginUserController));
+registerRouter.post('/login', validateBody(loginSchema), ctrlWrapper(loginUserController));
 registerRouter.post('/refresh', ctrlWrapper(refreshUserController));
-registerRouter.post('/logout', ctrlWrapper(logoutUserController))
+registerRouter.post('/logout', ctrlWrapper(logoutUserController));
 
 export default registerRouter;
