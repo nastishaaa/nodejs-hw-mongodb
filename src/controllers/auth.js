@@ -1,9 +1,8 @@
 import { registerUser, loginUser, refreshUser, logoutUser } from "../services/auth.js";
 import { THIRTY_DAYS } from "../constants/index.js";
-import { Session } from "../db/models/session.js";
 
-export const registerUserController = (req, res ) => {
-    const user = registerUser(req.body);
+export const registerUserController = async (req, res ) => {
+    const user = await registerUser(req.body);
 
     res.status(201).json({
         status: 201,
@@ -48,8 +47,8 @@ export const refreshUserController = async (req, res) => {
 
     setupSession(res, session);
 
-    res.status(201).json({
-        status: 201,
+    res.status(200).json({
+        status: 200,
         message: 'Successfully refreshed a session!',
         data: {
             accessToken: session.accessToken,

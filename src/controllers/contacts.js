@@ -8,8 +8,9 @@ export const getAllContactsController = async (req, res ) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortOrder, sortBy } = parseSortParams(req.query);
     const filter = parseFilterParams(req.query);
+    const userId = req.user._id;
 
-    const contacts = await getAllContacts({ page, perPage, sortOrder, sortBy, filter });
+    const contacts = await getAllContacts({ page, perPage, sortOrder, sortBy, filter, userId });
 
         res.json({
             status: 200,
@@ -37,7 +38,7 @@ export const getContactByIdController = async (req, res ) => {
 
 export const createContactController = async (req, res) => {
     const userId = req.user._id;
-    const contact = await createContact(req.body, userId);
+    const contact = await createContact({ ...req.body, userId });
 
     res.status(201).json({
         status: 201, 
