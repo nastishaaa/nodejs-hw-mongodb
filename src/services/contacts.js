@@ -14,10 +14,6 @@ export const getAllContacts = async ({ page, perPage,
 
     const contactType = parseType(filter?.contactType);
 
-    if (userId) {
-        contactsQuery.where('userId').equals(filter.userId);
-    }
-
     if (contactType) {
         contactsQuery.where('contactType').equals(filter.contactType);
     }
