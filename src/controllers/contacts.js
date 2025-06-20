@@ -45,7 +45,7 @@ export const createContactController = async (req, res) => {
         message: 'Successfully created a contact!',
         data: {
             userId, 
-            ...contact,
+            ...contact.toObject(),
         }
     })
 };
