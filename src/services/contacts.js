@@ -38,8 +38,8 @@ export const getAllContacts = async ({ page, perPage,
     };
 };
 
-export const getContactById = async (contactId, userId) => {
-    const contact = await Contact.findOne({ _id: contactId, userId });
+export const getContactById = async (contactId) => {
+    const contact = await Contact.findOne({ _id: contactId });
     return contact;
 }
 
