@@ -30,7 +30,9 @@ const contactsSchema = new mongoose.Schema({
     }, 
     
 }, {
-        timestamps: true 
+    timestamps: true,
+    versionKey: false,
     });
+
 
 export const Contact = mongoose.model('Contact', contactsSchema);
