@@ -49,12 +49,12 @@ export const createContact = async (payload) => {
 }
 
 export const updateContact = async (contactId, payload, userId) => {
-    const contact = await Contact.findOneAndUpdate(contactId, userId, payload, { new: true });
+    const contact = await Contact.findOneAndUpdate({_id: contactId, userId}, payload, { new: true });
     return contact;
 
 }
 
 export const deleteContactById = async (contactId, userId) => {
-    const contact = await Contact.findOneAndDelete(contactId, userId);
+    const contact = await Contact.findOneAndDelete({_id: contactId, userId});
     return contact;
 }
