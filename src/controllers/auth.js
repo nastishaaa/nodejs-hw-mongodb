@@ -1,6 +1,5 @@
 import { registerUser, loginUser, refreshUser, logoutUser, sendResetEmailUser, resetUserPassword } from "../services/auth.js";
 import { THIRTY_DAYS } from "../constants/index.js";
-import { Session } from "../db/models/session.js";
 
 export const registerUserController = async (req, res ) => {
     const user = await registerUser(req.body);

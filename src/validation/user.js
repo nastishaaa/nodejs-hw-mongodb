@@ -1,5 +1,4 @@
 import Joi from "joi";
-import { password } from "../services/auth";
 
 export const registerUserSchema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
