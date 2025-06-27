@@ -102,12 +102,14 @@ export const sendResetEmailUser = async (email) => {
         { expiresIn: '5m'},
     );
 
+    const frontendLink = `${getEnvVar('APP_DOMAIN')}/reset-password?token=${resetToken}`;
+
     try {
         await sendMail({
             from: getEnvVar('SMTP_FROM'),
             to: email,
             subject: 'Reset your password',
-            html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+            html: `<p>Click <a href="${frontendLink}">here</a> to reset your password!</p>`,
         });
     } catch {
         throw createHttpError(500, 'Failed to send the email, please try again later.');
