@@ -111,7 +111,10 @@ export const sendResetEmailUser = async (email) => {
             subject: 'Reset your password',
             html: `<p>Click <a href="${frontendLink}">here</a> to reset your password!</p>`,
         });
-    } catch {
+        console.log('✅ MAIL SENDED');
+
+    } catch (error) {
+        console.error('❌ SEND MAIL ERROR:', error);
         throw createHttpError(500, 'Failed to send the email, please try again later.');
     }
 }
