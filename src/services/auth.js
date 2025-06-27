@@ -2,8 +2,11 @@ import { User } from "../db/models/user.js";
 import { Session } from "../db/models/session.js";
 import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
+import { getEnvVar } from "../utils/getEnvVar.js";
 import createHttpError from "http-errors";
+import jwt from 'jsonwebtoken';
 import { FIFTEEN_MINUTES, THIRTY_DAYS } from "../constants/index.js";
+import { sendMail } from "../utils/sendMail.js";
 
 export const registerUser = async (payload) => {
     const userEmail = await User.findOne({ email: payload.email });
@@ -81,4 +84,54 @@ export const refreshUser = async ({ sessionId, refreshToken }) => {
 export const logoutUser = async (sessionId) => {
     await Session.deleteOne({ _id: sessionId });
     
+}
+
+export const sendResetEmailUser = async (email) => {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        throw createHttpError(404, 'User not found');
+    }
+    
+    const resetToken = jwt.sign(
+        {
+            sub: user._id,
+            email,
+        },
+        getEnvVar('JWT_SECRET'), 
+        { expiresIn: '5m'},
+    );
+
+    try {
+        await sendMail({
+            from: getEnvVar('SMTP_FROM'),
+            to: email,
+            subject: 'Reset your password',
+            html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+        });
+    } catch {
+        throw createHttpError(500, 'Failed to send the email, please try again later.');
+    }
+}
+
+export const resetUserPassword = async (payload) => {
+    let entries;
+
+    try {
+        entries = jwt.verify(payload.token, getEnvVar('JWT_SECRET'))
+    } catch (error) {
+        if (error instanceof Error) throw createHttpError(401, 'Token is expired or invalid.');
+        throw error;
+    }
+
+    const user = await User.findOne({ email: entries.email, _id: entries.sub });
+    if (!user) throw createHttpError(404, 'User not found');
+
+    const encryptedPassword = await bcrypt.hash(payload.password, 10);
+    await User.updateOne(
+        {_id: user._id},
+        {password: encryptedPassword},
+    );
+
+    await Session.deleteOne({ _id: entries.user._id });
 }
