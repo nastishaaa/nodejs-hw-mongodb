@@ -8,9 +8,6 @@ import jwt from 'jsonwebtoken';
 import { FIFTEEN_MINUTES, THIRTY_DAYS } from "../constants/index.js";
 import { sendMail } from "../utils/sendMail.js";
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 export const registerUser = async (payload) => {
     const userEmail = await User.findOne({ email: payload.email });
     if (userEmail) {

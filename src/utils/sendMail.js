@@ -1,9 +1,6 @@
 import nodemailer from 'nodemailer';
 import { getEnvVar } from './getEnvVar.js';
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 const transporter = nodemailer.createTransport({
     host: getEnvVar('SMTP_HOST'),
     port: Number(getEnvVar('SMTP_PORT')),
