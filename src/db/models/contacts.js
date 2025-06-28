@@ -22,15 +22,16 @@ const contactsSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    photo: {
+        type: String,
+        default: null,
+    },
     contactType: {
         type: String,
         enum: ['work', 'home', 'personal'],
         required: true,
         default: 'personal',
     }, 
-    photo:{
-        type: String,
-    }
 
 }, {
     timestamps: true,

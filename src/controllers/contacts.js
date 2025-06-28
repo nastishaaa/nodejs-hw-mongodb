@@ -71,7 +71,9 @@ export const patchContactController = async (req, res, next) => {
     const { contactId } = req.params;
     const photo = req.file;
     let photoUrl;
-
+    console.log("🖼️ req.file:", req.file);
+    console.log("📦 req.body:", req.body);
+        
     if (photo) {
         if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
             photoUrl = await saveFileToCloudinary(photo);
@@ -90,6 +92,7 @@ export const patchContactController = async (req, res, next) => {
         message: `"Successfully patched a contact!"`,
         data: contact, 
     })  
+
 };
 
 export const deleteContactByIdController = async (req, res, next) => {

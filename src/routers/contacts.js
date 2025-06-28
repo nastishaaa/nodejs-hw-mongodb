@@ -5,9 +5,7 @@ import { isValidId } from "../middlewares/isValidId.js";
 import { createContactSchema, updateContactSchema } from "../validation/contacts.js";
 import { validateBody } from "../middlewares/validateBody.js";
 import { authenticate } from "../middlewares/authenticate.js";
-import multer from "multer";
-
-const upload = multer({ dest: 'tmp/' });
+import upload from "../middlewares/multer-middlewar.js";
 
 const contactsRouter = Router();
 

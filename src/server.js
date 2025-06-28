@@ -5,9 +5,7 @@ import dotenv from "dotenv";
 import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import { getEnvVar } from './utils/getEnvVar.js';
 import cookieParser from 'cookie-parser';
-console.log('✅ CLOUD_NAME =', getEnvVar('CLOUD_NAME'));
 
 dotenv.config();
 
