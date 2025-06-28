@@ -6,6 +6,9 @@ import { parseFilterParams } from "../utils/parseFilterParams.js";
 import { getEnvVar } from "../utils/getEnvVar.js";
 import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 export const getAllContactsController = async (req, res ) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortOrder, sortBy } = parseSortParams(req.query);
