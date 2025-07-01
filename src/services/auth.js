@@ -98,8 +98,8 @@ export const sendResetEmailUser = async (email) => {
             sub: user._id,
             email,
         },
-        getEnvVar('JWT_SECRET'), 
-        { expiresIn: '5m'},
+        getEnvVar('JWT_SECRET'),
+        { expiresIn: '5m' },
     );
 
     const frontendLink = `${getEnvVar('APP_DOMAIN')}/reset-password?token=${resetToken}`;
@@ -112,7 +112,7 @@ export const sendResetEmailUser = async (email) => {
             html: `<p>Click <a href="${frontendLink}">here</a> to reset your password!</p>`,
         });
 
-    } catch {
+    } catch{
         throw createHttpError(500, 'Failed to send the email, please try again later.');
     }
 }
@@ -123,6 +123,8 @@ export const resetUserPassword = async (payload) => {
     try {
         entries = jwt.verify(payload.token, getEnvVar('JWT_SECRET'))
     } catch (error) {
+        console.log("ERROR" + error);
+        
         if (error instanceof Error) throw createHttpError(401, 'Token is expired or invalid.');
         throw error;
     }
@@ -135,6 +137,5 @@ export const resetUserPassword = async (payload) => {
         {_id: user._id},
         {password: encryptedPassword},
     );
-
-    await Session.deleteOne({ _id: entries.user._id });
+    await Session.deleteOne({ userId: entries.sub });
 }
