@@ -6,6 +6,8 @@ import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 
@@ -24,7 +26,10 @@ export const setupServer = async () => {
           target: 'pino-pretty',
         },
       }),
-    );
+  );
+  
+  app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use('/api-docs', swaggerDocs());
 
   app.use('/', router); 
 

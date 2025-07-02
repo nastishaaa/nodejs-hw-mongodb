@@ -123,8 +123,6 @@ export const resetUserPassword = async (payload) => {
     try {
         entries = jwt.verify(payload.token, getEnvVar('JWT_SECRET'))
     } catch (error) {
-        console.log("ERROR" + error);
-        
         if (error instanceof Error) throw createHttpError(401, 'Token is expired or invalid.');
         throw error;
     }
