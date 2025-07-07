@@ -14,7 +14,7 @@ properties:
     type: string
     example: 'John Doe'
   email:
-    description: "Contact's age"
+    description: "Contact's email"
     type: string
     example: john@example.com
   phoneNumber:
