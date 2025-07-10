@@ -14,10 +14,7 @@ tags:
     description: Операції авторизації
 
 servers:
-  - url: http://localhost:3000
-    description: Local server
   - url: https://contact-auth-swagger-app.onrender.com
-    description: Production server
 
 security:
   - bearerAuth: []
